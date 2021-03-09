@@ -41,14 +41,23 @@ public void addMark(Mark mark){
 
     }
 
-public String giveHint(){
-      return feedbacks.toString()  ;
+public String giveHint(String attempt){
+      String hint = "";
+    for(int i = 0 ; i  < getCurrentWordLength(); i++)
+      if (attempt.charAt(i) == wordToGuess.charAt(i)){
+       hint =   hint + wordToGuess.charAt(i);
 
+
+
+      }else{
+          hint = hint + ".";
+      }
+
+return hint;
 }
 
-    public List<Feedback> getFeedbackHistory() {
-        return feedbacks;
-    }
+
+
 
     public int getAttempts() {
         return attempts;
