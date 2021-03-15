@@ -1,8 +1,15 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.List;
 
+@Entity
 public class Game {
+
+    @Id
+    private Long Id;
     private int score;
     private List<GameStatus>gameStatuses;
     private Round round;
@@ -12,6 +19,11 @@ public class Game {
         this.score = score;
 
     }
+
+    public Game() {
+
+    }
+
 
     public void startGame(){
    List<GameStatus> gameStatuses = List.of(GameStatus.PLAYING);
@@ -60,4 +72,11 @@ public class Game {
     }
 
 
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
+    }
 }
