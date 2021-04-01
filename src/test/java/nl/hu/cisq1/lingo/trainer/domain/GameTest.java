@@ -7,11 +7,27 @@ import static org.junit.jupiter.api.Assertions.*;
 class GameTest {
 
     @Test
-    void startNewRound() {
-     Game game = new Game(10);
-     game.startGame();
-     game.startNewRound("woord");
-     assertNotNull(game.getRound());
+    void startNewGame() {
+        Game game = new Game("woord");
+        assertEquals(0, game.getAttemptCount());
+    }
+
+    @Test
+    void getAttemptCount(){
+        Game game = new Game("auto");
+
+        assertNotNull(game.getAttemptCount());
+    }
+    @Test
+    void getRoundsCount(){
+        Game game = new Game("game");
+        game.startNewRound("random");
+        assertNotNull(game.getRoundsCount());
+    }
+    @Test
+    void getscore(){
+        Game game = new Game("game");
+        assertNotNull(game.getScore());
     }
 
 

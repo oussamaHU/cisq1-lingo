@@ -10,17 +10,25 @@ class RoundTest {
 
     @Test
     void guess() {
-        Round round = new Round("woord", 1);
+        Round round = new Round("woord");
         List<Mark> marks = List.of(Mark.INVALID, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT);
-        assertEquals(round.guess("moord"),marks );
-        }
-
+        assertEquals(round.guess("moord"), marks);
+    }
 
     @Test
-    void getAttempts() {
-        Round round = new Round("woord", 1);
+    void getAttemptCount(){
+        Round round = new Round("woord");
+        assertNotNull(round.getAttemptCount());
+    }
 
-        assertNotNull(round.getAttempts());
-
+    @Test
+    void getCurrentWordLength(){
+        Round round = new Round("woord");
+        assertNotNull(round.getCurrentWordLength());
+    }
+    @Test
+    void giveHint(){
+        Round round = new Round("boot");
+        assertNotNull(round.giveHint("boot"));
     }
 }

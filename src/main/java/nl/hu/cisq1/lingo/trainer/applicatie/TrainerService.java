@@ -11,34 +11,32 @@ import javax.transaction.Transactional;
 @Service
 @Transactional
 public class TrainerService {
-    private WordService wordService;
-    private SpringGameRepository gameRepository;
-    private Game game = new Game();
+    private final WordService wordService;
+    private final SpringGameRepository gameRepository;
+
 
     public TrainerService(WordService wordService, SpringGameRepository gameRepository) {
         this.wordService = wordService;
         this.gameRepository = gameRepository;
     }
 
-    public Game startGame() {
-        game.startGame();
-        return game;
 
-
+    public Game startNewRound(Long gameId){
+        Game game = getGameById(gameId);
+        String word = wordService.provideRandomWord(5);
+        game.startNewRound(word);
+        return gameRepository.save(game);
     }
-    public Game startNewRound(String wordToGuess){
-        game.startNewRound("woord");
-        return game;
 
-    }
-    public boolean guess(String word){
+    public void guess(Long gameId, String word){
+        Game game = getGameById(gameId);
         game.guess(word);
-        return true;
-
+        gameRepository.save(game);
     }
-    public boolean showProgress(){
-        game.showProgress();
-        return true;
+
+    private Game getGameById(Long id) {
+        return gameRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Game not found."));
     }
 
 }

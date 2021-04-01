@@ -4,7 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface GameJpaRepository extends JpaRepository<Game, Long> {
+public interface
+
+
+GameJpaRepository extends JpaRepository<Game, Long> {
 
     @Override
     List<Game> findAllById(Iterable<Long> iterable);

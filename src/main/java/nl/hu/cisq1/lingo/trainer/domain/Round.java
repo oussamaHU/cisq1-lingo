@@ -1,71 +1,77 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+@Entity
 public class Round {
-    private String wordToGuess;
-    private int attempts;
-    private List<Feedback>feedbacks;
+    @Id
+    @GeneratedValue
+    private Integer id;
+    private static final int MAX_ATTEMPTS = 5;
+
+    private  String wordToGuess;
+    @OneToMany
+    private List<Feedback> feedbacks = new ArrayList<>();
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
     private List<Mark> marks = new ArrayList<>();
 
-    public Round(String wordToGuess, int attempts) {
+    public Round(String wordToGuess) {
         this.wordToGuess = wordToGuess;
-        this.attempts = attempts;
+    }
+
+    public Round() {
 
     }
-public List<Mark> guess(String attempt){
 
-
-        if (attempts <= 5){
-            if (attempt != wordToGuess){
-                for(int i = 0 ; i  < getCurrentWordLength(); i++){
-                    if(attempt.charAt(i) == wordToGuess.charAt(i)){
-                      addMark(Mark.CORRECT);
-
-                    }else {
-                        addMark(Mark.INVALID);
-                    }
-
-                }
-               return getMarks();
-
+    public List<Mark> guess(String attempt) {
+        if (getAttemptCount() > MAX_ATTEMPTS) {
+            throw new RuntimeException("Max attempts already reached");
+        }
+        for (int i = 0; i < getCurrentWordLength(); i++) {
+            if (attempt.charAt(i) == wordToGuess.charAt(i)) {
+                addMark(Mark.CORRECT);
+            } else {
+                addMark(Mark.INVALID);
             }
 
-
         }
-    return List.of(Mark.INVALID);
-}
-public void addMark(Mark mark){
+        return getMarks();
+
+
+    }
+
+    public int getAttemptCount() {
+        return feedbacks.size();
+    }
+
+    public void addMark(Mark mark) {
         marks.add(mark);
 
     }
 
-public String giveHint(String attempt){
-      String hint = "";
-    for(int i = 0 ; i  < getCurrentWordLength(); i++)
-      if (attempt.charAt(i) == wordToGuess.charAt(i)){
-       hint =   hint + wordToGuess.charAt(i);
+    public String giveHint(String attempt) {
+        String hint = "";
+        for (int i = 0; i < getCurrentWordLength(); i++)
+            if (attempt.charAt(i) == wordToGuess.charAt(i)) {
+                hint = hint + wordToGuess.charAt(i);
 
 
+            } else {
+                hint = hint + ".";
+            }
 
-      }else{
-          hint = hint + ".";
-      }
-
-return hint;
-}
-
-
-
-
-    public int getAttempts() {
-        return attempts;
+        return hint;
     }
-    public int getCurrentWordLength(){
+
+    public int getCurrentWordLength() {
         return wordToGuess.length();
 
     }
+
     public List<Mark> getMarks() {
         return marks;
     }
