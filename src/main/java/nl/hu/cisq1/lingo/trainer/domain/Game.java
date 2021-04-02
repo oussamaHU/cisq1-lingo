@@ -27,8 +27,8 @@ public class Game {
         rounds.add(nextRound);
     }
 
-    public void guess(String word) {
-        getLastRound().guess(word);
+    public List<Mark> guess(String word) {
+        return getLastRound().guess(word);
     }
 
 
