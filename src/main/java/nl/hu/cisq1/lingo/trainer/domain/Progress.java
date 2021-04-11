@@ -13,17 +13,13 @@ public class Progress {
 
 
 
-    public void setHints(String hints) {
-        this.hints = hints;
-    }
+
 
     public int getRoundNumber() {
         return roundNumber;
     }
 
-    public void setRoundNumber(int roundNumber) {
-        this.roundNumber = roundNumber;
-    }
+
 
 
 }
