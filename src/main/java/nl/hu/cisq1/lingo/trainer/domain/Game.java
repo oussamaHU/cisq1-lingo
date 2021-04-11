@@ -43,7 +43,7 @@ public class Game {
         if (getRoundsCount() == 0) {
             return null;
         }
-        return rounds.get(getRoundsCount() - 1);
+        return rounds.get(getRoundsCount()-1);
     }
 
     public int getRoundsCount() {

@@ -36,7 +36,7 @@ class TrainerServiceTest {
     void guess() {
         Game game = new Game("WOORD");
         List<Mark> marks = List.of(Mark.INVALID, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT);
-        assertEquals(game.guess("moord"), marks);
+        assertEquals(game.guess("MOORD"), marks);
 
     }
 }
