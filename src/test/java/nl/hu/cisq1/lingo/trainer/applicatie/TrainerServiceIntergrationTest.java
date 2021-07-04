@@ -42,6 +42,10 @@ class TrainerServiceIntergrationTest {
 
         service.startNewRound(id);
         assertEquals(1, game.getRoundsCount());
+        service.startNewRound(id);
+        assertEquals(2, game.getRoundsCount());
+        service.startNewRound(id);
+        assertEquals(3, game.getRoundsCount());
     }
     static Stream<Arguments> geefId(){
         return Stream.of(
