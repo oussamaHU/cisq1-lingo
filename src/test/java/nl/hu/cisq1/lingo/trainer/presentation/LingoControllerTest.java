@@ -31,7 +31,8 @@ class LingoControllerTest {
         WordService wordService = mock(WordService.class);
         when(wordService.provideRandomWord(any())).thenReturn("WOORD");
 
-        Game game = new Game("TEST");
+        Game game = new Game();
+        game.startNewRound("TEST");
         SpringGameRepository gameRepositoryMock = mock(SpringGameRepository.class);
         when(gameRepositoryMock.findById(any())).thenReturn(Optional.of(game));
         TrainerService service = new TrainerService(wordService, gameRepositoryMock);
@@ -44,8 +45,10 @@ class LingoControllerTest {
 
     @Test
     void guess() {
-        Game game = new Game("WOORD");
-        List<Mark> marks = List.of(Mark.INVALID, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT);
-        assertEquals(game.guess("MOORD"), marks);
+        Game game = new Game();
+        game.startNewRound("woord");
+        List<Mark> marks = List.of(Mark.ABSENT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT);
+        assertEquals(game.guess("MOORD").getMarks(), marks);
+
     }
 }

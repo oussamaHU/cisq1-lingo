@@ -8,25 +8,28 @@ class GameTest {
 
     @Test
     void startNewGame() {
-        Game game = new Game("woord");
+        Game game = new Game();
+        game.startNewRound("WOORD");
         assertEquals(0, game.getAttemptCount());
     }
 
     @Test
     void getAttemptCount(){
-        Game game = new Game("auto");
+        Game game = new Game();
+        game.startNewRound("auto");
 
         assertNotNull(game.getAttemptCount());
     }
     @Test
     void getRoundsCount(){
-        Game game = new Game("game");
+        Game game = new Game();
         game.startNewRound("random");
         assertNotNull(game.getRoundsCount());
     }
     @Test
     void getscore(){
-        Game game = new Game("game");
+        Game game = new Game();
+        game.startNewRound("game");
         assertNotNull(game.getScore());
     }
 

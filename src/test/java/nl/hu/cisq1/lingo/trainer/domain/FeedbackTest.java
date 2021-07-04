@@ -15,7 +15,7 @@ class FeedbackTest {
 
         String poging = "PAARD";
         List<Mark> marks = List.of(Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT);
-        Feedback feedback = new Feedback(poging, marks);
+        Feedback feedback = new Feedback(poging, marks,"PAARD");
 
 
         assertTrue(feedback.isWordGuessed());
@@ -28,7 +28,7 @@ class FeedbackTest {
 
         String poging = "PAARD";
         List<Mark> marks = List.of(Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.ABSENT);
-        Feedback feedback = new Feedback(poging, marks);
+        Feedback feedback = new Feedback(poging, marks, "PAART");
 
 
         assertFalse((feedback.isWordGuessed()));
@@ -39,9 +39,9 @@ class FeedbackTest {
     void guessIsInvalid(){
 
 
-        String poging = "PAARD";
-        List<Mark> marks = List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID);
-        Feedback feedback = new Feedback(poging, marks);
+        String poging = "PAARDT";
+        List<Mark> marks = List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID);
+        Feedback feedback = new Feedback(poging, marks, "PAARD");
 
 
         assertTrue((feedback.isGuessInvalid()));
@@ -53,7 +53,7 @@ class FeedbackTest {
 
         String poging = "PAARD";
         List<Mark> marks = List.of(Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.ABSENT);
-        Feedback feedback = new Feedback(poging, marks);
+        Feedback feedback = new Feedback(poging, marks, "PAARD");
 
 
         assertTrue((feedback.isGuessvalid()));

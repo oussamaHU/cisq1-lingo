@@ -1,5 +1,7 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,14 +10,17 @@ import java.util.List;
 public class Game {
     @Id
     @GeneratedValue
-    private Integer id;
-    private int score;
+    private Long id;
+
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @OneToMany
     private  List<Round> rounds = new ArrayList<>();
 
-    public Game(String wordToGuess) {
-        startNewRound(wordToGuess);
-    }
+
+    private Boolean isPlaying = false;
+    private int score;
+
+
 
 
     public Game() {
@@ -25,10 +30,25 @@ public class Game {
     public void startNewRound(String wordToGuess) {
         Round nextRound = new Round(wordToGuess);
         rounds.add(nextRound);
+        isPlaying = true;
     }
 
-    public List<Mark> guess(String word) {
-        return getLastRound().guess(word);
+    public Feedback guess(String word) {
+        if(!isPlaying){
+            System.out.println("je moet nog een round starten");
+            return null;
+        }
+        getLastRound().guess(word);
+        getLastRound().getCurrentFeedback().setProgress(new Progress(score, getLastRound().getCurrentFeedback().getHint(), getRoundsCount()));
+
+        if(!getLastRound().getCurrentFeedback().getMarks().contains(Mark.ABSENT) &!getLastRound().getCurrentFeedback().getMarks().contains(Mark.INVALID)&!getLastRound().getCurrentFeedback().getMarks().contains(Mark.PRESENT)){
+            isPlaying = false;
+            score = score + (5 * ((5-getLastRound().getAttemptCount())+5));
+            System.out.println("je hebt de round gewonnen!");
+        }
+
+        return getLastRound().getCurrentFeedback();
+
     }
 
 
@@ -37,9 +57,11 @@ public class Game {
         return getLastRound().getAttemptCount();
     }
 
+    public Progress generateFirstProgress(){  // dit is progress speciaal voor wanneer een nieuwe round wordt gestart
+        return new Progress(score, getLastRound().getFirstHint() ,getRoundsCount());
+    }
 
-
-    private Round getLastRound() {
+    public Round getLastRound() {
         if (getRoundsCount() == 0) {
             return null;
         }
@@ -54,4 +76,8 @@ public class Game {
         return score;
     }
 
+
+    public Long getId() {
+        return id;
+    }
 }
