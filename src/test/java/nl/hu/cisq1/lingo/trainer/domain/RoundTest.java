@@ -20,6 +20,8 @@ class RoundTest {
     void getAttemptCount(){
         Round round = new Round("woord");
         assertNotNull(round.getAttemptCount());
+        round.setFeedbackToNull();
+        assertEquals(0, round.getAttemptCount());
     }
 
     @Test

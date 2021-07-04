@@ -110,4 +110,7 @@ public class Round {
     public List<Mark> getMarks() {
         return marks;
     }
+    public void setFeedbackToNull(){
+        feedbacks = null;
+    }
 }
