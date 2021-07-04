@@ -4,7 +4,8 @@ import nl.hu.cisq1.lingo.trainer.data.SpringGameRepository;
 import nl.hu.cisq1.lingo.trainer.domain.Game;
 import nl.hu.cisq1.lingo.trainer.domain.Mark;
 import nl.hu.cisq1.lingo.words.application.WordService;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 
 import java.util.List;
 import java.util.Optional;
