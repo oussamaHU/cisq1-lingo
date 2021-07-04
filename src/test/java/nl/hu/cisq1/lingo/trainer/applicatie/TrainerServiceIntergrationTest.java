@@ -69,4 +69,12 @@ class TrainerServiceIntergrationTest {
 
         );
     }
+    @Test
+    void startGameWorks(){
+        WordService wordService = mock(WordService.class);
+        SpringGameRepository gameRepositoryMock = mock(SpringGameRepository.class);
+        TrainerService service = new TrainerService(wordService, gameRepositoryMock);
+        assertNotNull( service.startNewGame());
+
+    }
 }
